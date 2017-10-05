@@ -14,17 +14,23 @@ class SoundViewController: UIViewController {
     
     
     @IBOutlet weak var recordButton: UIButton!
+    
+    @IBOutlet weak var playButton: UIButton!
+    
     @IBOutlet weak var soundNameTextField: UITextField!
     
+    @IBOutlet weak var addButton: UIButton!
     
     var audioRecorder: AVAudioRecorder?
-    
+    var audioPlayer: AVAudioPlayer?
+    var audioURL : URL?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupRecorder()
+        playButton.isEnabled = false
     }
     
     func setupRecorder() {
@@ -43,8 +49,12 @@ class SoundViewController: UIViewController {
             
             let pathComponents = [basePath, "audio.mp4a"]
             
-            let audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
+            audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
+            /*
+            print("##########")
             print(audioURL)
+            print("##########")
+            */
             
             //Create settings for the audio recorder
             
@@ -78,6 +88,9 @@ class SoundViewController: UIViewController {
             
             //Change button title to Record
             recordButton.setTitle("Record", for: .normal)
+            
+            playButton.isEnabled = true
+            
         } else {
             //Start the recording
             audioRecorder?.record()
@@ -88,6 +101,13 @@ class SoundViewController: UIViewController {
         }
     }
     @IBAction func playTapped(_ sender: Any) {
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOf: audioURL!)
+            audioPlayer!.play()
+        } catch {
+            
+        }
+        
         
     }
     

@@ -102,6 +102,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="Ze8-Nk-cSm" id="RW9-f8-cKO"/>
+                        <outlet property="playButton" destination="X2a-Tc-TRa" id="Q0G-vX-U9S"/>
                         <outlet property="recordButton" destination="oO9-vX-14F" id="uwv-Ht-6Uz"/>
                         <outlet property="soundNameTextField" destination="5V8-kU-tmE" id="Iqw-sd-xzg"/>
                     </connections>
