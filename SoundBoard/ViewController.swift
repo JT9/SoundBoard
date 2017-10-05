@@ -65,6 +65,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
+    //Used to delete a tableView cell
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            //print("Hello Delete")
+            //Grab sound
+            let sound = sounds[indexPath.row]
+            
+            //Grab context
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            //Delete sound
+            context.delete(sound)
+            
+            //Save
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+            //New stuff in Core Data put it into the array and reload the tableView
+            do {
+                sounds = try context.fetch(Sound.fetchRequest())
+                tableView.reloadData()
+            } catch {}
+            
+        }
+    }
+    
     
     
     override func didReceiveMemoryWarning() {
